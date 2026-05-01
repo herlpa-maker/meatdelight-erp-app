@@ -53,6 +53,39 @@
     p {
       opacity: 0.9;
       font-size: 14px;
+      line-height: 1.4;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 14px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    .btn-main {
+      background: white;
+      color: #7a1f1f;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.16);
+    }
+
+    .btn-fix {
+      background: rgba(255,255,255,0.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      opacity: 0.72;
     }
   </style>
 </head>
@@ -64,20 +97,32 @@
     </div>
 
     <h1>MEATDELIGHT ERP</h1>
-    <p>Opening secure login...</p>
+    <p>Open secure ERP login.</p>
+
+    <button class="btn-main" onclick="openLogin()">Login Normally</button>
+
+    <button class="btn-fix" onclick="forceLogin()">Fix Login / Clear Session</button>
+
+    <div class="hint">
+      Use “Fix Login” if the portal gets stuck loading session.
+    </div>
   </div>
 
   <script>
-    const LOGIN_URL =
-      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=login";
+    const BASE =
+      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
+
+    function openLogin() {
+      window.location.href = BASE + "?page=login";
+    }
+
+    function forceLogin() {
+      window.location.href = BASE + "?page=login&force=1";
+    }
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(function () {});
     }
-
-    setTimeout(function () {
-      window.location.href = LOGIN_URL;
-    }, 600);
   </script>
 </body>
 </html>
