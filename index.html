@@ -54,63 +54,30 @@
       opacity: 0.9;
       font-size: 14px;
     }
-
-    button {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 14px;
-      border: none;
-      background: white;
-      color: #7a1f1f;
-      font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.16);
-    }
-
-    .hint {
-      margin-top: 18px;
-      font-size: 12px;
-      opacity: 0.72;
-    }
   </style>
 </head>
 
 <body>
   <div class="box">
-
     <div class="logo-wrap">
       <img src="Logo.jpeg" class="logo" alt="MeatDelight Logo">
     </div>
 
     <h1>MEATDELIGHT ERP</h1>
-    <p>Secure mobile access to your ERP system</p>
-
-    <button onclick="openERP()">
-      Login to ERP
-    </button>
-
-    <div class="hint">
-      AYO Brothers / MeatDelight mobile ERP launcher
-    </div>
-
+    <p>Opening secure login...</p>
   </div>
 
   <script>
-    const BASE_URL =
-      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
+    const LOGIN_URL =
+      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=login";
 
-    function openERP() {
-      // Open native Apps Script login page (secure)
-      window.location.href = BASE_URL + "?page=login";
-    }
-
-    // PWA support
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(function () {});
     }
+
+    setTimeout(function () {
+      window.location.href = LOGIN_URL;
+    }, 600);
   </script>
 </body>
 </html>
