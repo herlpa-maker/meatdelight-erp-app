@@ -9,7 +9,74 @@
 
   <style>
     html, body {
+      margi<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7a1f1f">
+  <title>MEATDELIGHT ERP</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body {
       margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #7a1f1f, #0f172a);
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .box {
+      max-width: 360px;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    p {
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    a, button {
+      margin-top: 18px;
+      display: inline-block;
+      background: white;
+      color: #7a1f1f;
+      padding: 13px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h1>MEATDELIGHT ERP</h1>
+    <p>Tap below to open the ERP portal.</p>
+
+    <a id="openBtn" href="https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com">
+      Open ERP
+    </a>
+  </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+</body>
+</html>n: 0;
       width: 100%;
       height: 100%;
       background: #0f172a;
