@@ -2,124 +2,115 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#7a1f1f">
   <title>MEATDELIGHT ERP</title>
+  <link rel="manifest" href="manifest.json">
 
   <style>
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #7a1f1f, #0f172a);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.10), transparent 30%),
+        linear-gradient(135deg, #7a1f1f, #0f172a);
       color: white;
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 24px;
     }
 
-    .box { width: 90%; max-width: 380px; }
+    .box {
+      max-width: 390px;
+      width: 100%;
+    }
 
     .logo-wrap {
-      background: rgba(255,255,255,0.08);
+      background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
       padding: 14px;
-      border-radius: 20px;
-      margin-bottom: 20px;
+      border-radius: 22px;
+      display: inline-block;
+      margin: 0 auto 20px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+      backdrop-filter: blur(8px);
     }
 
     .logo {
-      width: 140px;
+      width: 150px;
+      height: auto;
       display: block;
-      margin: auto;
+      border-radius: 12px;
     }
 
-    input {
-      width: 100%;
-      padding: 14px;
-      margin-top: 12px;
-      border-radius: 12px;
-      border: none;
-      font-size: 15px;
+    h1 {
+      margin: 0 0 8px;
+      font-size: 25px;
+    }
+
+    p {
+      opacity: 0.9;
+      font-size: 14px;
     }
 
     button {
+      display: block;
       width: 100%;
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 12px;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 14px;
       border: none;
       background: white;
       color: #7a1f1f;
       font-weight: bold;
+      font-size: 15px;
       cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.16);
     }
 
-    .error {
-      color: #ffb3b3;
-      margin-top: 10px;
-      font-size: 13px;
+    .hint {
+      margin-top: 18px;
+      font-size: 12px;
+      opacity: 0.72;
     }
   </style>
 </head>
 
 <body>
+  <div class="box">
 
-<div class="box">
+    <div class="logo-wrap">
+      <img src="Logo.jpeg" class="logo" alt="MeatDelight Logo">
+    </div>
 
-  <div class="logo-wrap">
-    <img src="Logo.jpeg" class="logo">
+    <h1>MEATDELIGHT ERP</h1>
+    <p>Secure mobile access to your ERP system</p>
+
+    <button onclick="openERP()">
+      Login to ERP
+    </button>
+
+    <div class="hint">
+      AYO Brothers / MeatDelight mobile ERP launcher
+    </div>
+
   </div>
 
-  <h2>MEATDELIGHT ERP</h2>
+  <script>
+    const BASE_URL =
+      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
 
-  <input id="email" type="text" placeholder="Email or Username">
-  <input id="password" type="password" placeholder="Password">
+    function openERP() {
+      // Open native Apps Script login page (secure)
+      window.location.href = BASE_URL + "?page=login";
+    }
 
-  <button onclick="login()">Login</button>
-
-  <div id="error" class="error"></div>
-
-</div>
-
-<script>
-const BASE_URL = "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
-
-function login() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const error = document.getElementById("error");
-
-  error.innerText = "";
-
-  if (!email || !password) {
-    error.innerText = "Enter email and password";
-    return;
-  }
-
-  const url = BASE_URL + "?action=login&email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
-
-  fetch(url)
-    .then(r => r.json())
-    .then(res => {
-
-      if (!res || !res.ok) {
-        error.innerText = "Invalid login";
-        return;
-      }
-
-      // Save session (matches your ERP pattern)
-      localStorage.setItem("erp_user", res.user.email);
-
-      // Redirect to portal
-      window.location.href = BASE_URL + "?page=portal&email=" + encodeURIComponent(res.user.email);
-
-    })
-    .catch(() => {
-      error.innerText = "Connection error";
-    });
-}
-</script>
-
+    // PWA support
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    }
+  </script>
 </body>
 </html>
