@@ -8,17 +8,6 @@
   <link rel="manifest" href="manifest.json">
 
   <style>
-    html, body {
-      margi<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#7a1f1f">
-  <title>MEATDELIGHT ERP</title>
-  <link rel="manifest" href="manifest.json">
-
-  <style>
     body {
       margin: 0;
       height: 100vh;
@@ -37,36 +26,50 @@
     }
 
     h1 {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      font-size: 24px;
     }
 
     p {
       opacity: 0.9;
       line-height: 1.4;
+      font-size: 14px;
     }
 
-    a, button {
-      margin-top: 18px;
-      display: inline-block;
+    a {
+      display: block;
+      margin-top: 16px;
       background: white;
       color: #7a1f1f;
-      padding: 13px 18px;
+      padding: 14px;
       border-radius: 12px;
       font-weight: bold;
       text-decoration: none;
-      border: none;
       font-size: 15px;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.15);
+      color: white;
     }
   </style>
 </head>
 
 <body>
+
   <div class="box">
     <h1>MEATDELIGHT ERP</h1>
-    <p>Tap below to open the ERP portal.</p>
+    <p>Tap below to open the ERP securely in Chrome.</p>
 
-    <a id="openBtn" href="https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com">
-      Open ERP
+    <!-- PRIMARY FIX: FORCE CHROME -->
+    <a href="intent://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com#Intent;scheme=https;package=com.android.chrome;end">
+      Open ERP (Recommended)
+    </a>
+
+    <!-- FALLBACK -->
+    <a class="secondary"
+       href="https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com">
+      Open ERP (Fallback)
     </a>
   </div>
 
@@ -75,35 +78,6 @@
       navigator.serviceWorker.register("sw.js");
     }
   </script>
-</body>
-</html>n: 0;
-      width: 100%;
-      height: 100%;
-      background: #0f172a;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
 
-    iframe {
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      border: 0;
-      background: white;
-    }
-  </style>
-</head>
-
-<body>
-  <iframe
-    src="https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com"
-    allow="clipboard-read; clipboard-write; fullscreen"
-  ></iframe>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
 </body>
 </html>
