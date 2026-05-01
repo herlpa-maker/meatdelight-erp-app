@@ -11,7 +11,9 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #7a1f1f, #0f172a);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.10), transparent 30%),
+        linear-gradient(135deg, #7a1f1f, #0f172a);
       color: white;
       font-family: Arial, sans-serif;
       display: flex;
@@ -26,84 +28,96 @@
       width: 100%;
     }
 
-.logo {
-  width: 150px;
-  height: auto;
-  object-fit: contain;
-  margin: 0 auto 18px;
-  display: block;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-}
+    .logo-wrap {
+      background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      padding: 14px;
+      border-radius: 22px;
+      display: inline-block;
+      margin: 0 auto 20px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
 
     h1 {
       margin: 0 0 8px;
       font-size: 25px;
+      letter-spacing: -0.3px;
     }
 
     p {
       opacity: 0.9;
       line-height: 1.4;
       font-size: 14px;
+      margin: 0 0 8px;
     }
 
     input {
       width: 100%;
       box-sizing: border-box;
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.25);
       font-size: 15px;
       outline: none;
+      background: rgba(255,255,255,0.96);
+      color: #111827;
     }
 
-    button, a {
+    button {
       display: block;
       width: 100%;
       box-sizing: border-box;
       margin-top: 14px;
       background: white;
       color: #7a1f1f;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 15px;
+      border-radius: 14px;
       font-weight: bold;
       text-decoration: none;
       font-size: 15px;
       border: none;
       cursor: pointer;
       font-family: Arial, sans-serif;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.16);
     }
 
     .secondary {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.14);
       color: white;
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,0.10);
     }
 
     .hint {
       margin-top: 18px;
       font-size: 12px;
-      opacity: 0.75;
+      opacity: 0.72;
     }
   </style>
 </head>
 
 <body>
   <div class="box">
-    <img src="Logo.jpeg" class="logo" alt="MeatDelight Logo">
+    <div class="logo-wrap">
+      <img src="Logo.jpeg" class="logo" alt="MeatDelight Logo">
+    </div>
+
     <h1>MEATDELIGHT ERP</h1>
     <p>Enter your ERP email once. The app will remember it on this phone.</p>
 
     <input id="emailInput" type="email" placeholder="example@ayobrothers.com">
 
-    <button onclick="openERP()">
-      Open ERP
-    </button>
+    <button onclick="openERP()">Open ERP</button>
 
-    <button class="secondary" onclick="clearEmail()">
-      Change User
-    </button>
+    <button class="secondary" onclick="clearEmail()">Change User</button>
 
     <div class="hint">
       AYO Brothers / MeatDelight mobile ERP launcher
@@ -115,7 +129,6 @@
       "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
 
     const DEFAULT_EMAIL = "herlpa@gmail.com";
-
     const emailInput = document.getElementById("emailInput");
 
     window.addEventListener("load", function () {
