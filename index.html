@@ -2,167 +2,124 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#7a1f1f">
   <title>MEATDELIGHT ERP</title>
-  <link rel="manifest" href="manifest.json">
 
   <style>
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.10), transparent 30%),
-        linear-gradient(135deg, #7a1f1f, #0f172a);
+      background: linear-gradient(135deg, #7a1f1f, #0f172a);
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 24px;
     }
 
-    .box {
-      max-width: 390px;
-      width: 100%;
-    }
+    .box { width: 90%; max-width: 380px; }
 
     .logo-wrap {
-      background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03));
+      background: rgba(255,255,255,0.08);
       padding: 14px;
-      border-radius: 22px;
-      display: inline-block;
-      margin: 0 auto 20px;
-      box-shadow: 0 14px 34px rgba(0,0,0,0.28);
-      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      margin-bottom: 20px;
     }
 
     .logo {
-      width: 150px;
-      height: auto;
+      width: 140px;
       display: block;
-      border-radius: 12px;
-    }
-
-    h1 {
-      margin: 0 0 8px;
-      font-size: 25px;
-      letter-spacing: -0.3px;
-    }
-
-    p {
-      opacity: 0.9;
-      line-height: 1.4;
-      font-size: 14px;
-      margin: 0 0 8px;
+      margin: auto;
     }
 
     input {
       width: 100%;
-      box-sizing: border-box;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.25);
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 12px;
+      border: none;
       font-size: 15px;
-      outline: none;
-      background: rgba(255,255,255,0.96);
-      color: #111827;
     }
 
     button {
-      display: block;
       width: 100%;
-      box-sizing: border-box;
       margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
       background: white;
       color: #7a1f1f;
-      padding: 15px;
-      border-radius: 14px;
       font-weight: bold;
-      text-decoration: none;
-      font-size: 15px;
-      border: none;
       cursor: pointer;
-      font-family: Arial, sans-serif;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.16);
     }
 
-    .secondary {
-      background: rgba(255,255,255,0.14);
-      color: white;
-      box-shadow: none;
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-
-    .hint {
-      margin-top: 18px;
-      font-size: 12px;
-      opacity: 0.72;
+    .error {
+      color: #ffb3b3;
+      margin-top: 10px;
+      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <div class="logo-wrap">
-      <img src="Logo.jpeg" class="logo" alt="MeatDelight Logo">
-    </div>
 
-    <h1>MEATDELIGHT ERP</h1>
-    <p>Enter your ERP email once. The app will remember it on this phone.</p>
+<div class="box">
 
-    <input id="emailInput" type="email" placeholder="example@ayobrothers.com">
-
-    <button onclick="openERP()">Open ERP</button>
-
-    <button class="secondary" onclick="clearEmail()">Change User</button>
-
-    <div class="hint">
-      AYO Brothers / MeatDelight mobile ERP launcher
-    </div>
+  <div class="logo-wrap">
+    <img src="Logo.jpeg" class="logo">
   </div>
 
-  <script>
-    const BASE_URL =
-      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
+  <h2>MEATDELIGHT ERP</h2>
 
-    const DEFAULT_EMAIL = "herlpa@gmail.com";
-    const emailInput = document.getElementById("emailInput");
+  <input id="email" type="text" placeholder="Email or Username">
+  <input id="password" type="password" placeholder="Password">
 
-    window.addEventListener("load", function () {
-      const saved = localStorage.getItem("meatdelight_erp_email") || DEFAULT_EMAIL;
-      emailInput.value = saved;
-    });
+  <button onclick="login()">Login</button>
 
-    function openERP() {
-      const email = String(emailInput.value || "").trim().toLowerCase();
+  <div id="error" class="error"></div>
 
-      if (!email) {
-        alert("Please enter your ERP email.");
+</div>
+
+<script>
+const BASE_URL = "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
+
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const error = document.getElementById("error");
+
+  error.innerText = "";
+
+  if (!email || !password) {
+    error.innerText = "Enter email and password";
+    return;
+  }
+
+  const url = BASE_URL + "?action=login&email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
+
+  fetch(url)
+    .then(r => r.json())
+    .then(res => {
+
+      if (!res || !res.ok) {
+        error.innerText = "Invalid login";
         return;
       }
 
-      localStorage.setItem("meatdelight_erp_email", email);
+      // Save session (matches your ERP pattern)
+      localStorage.setItem("erp_user", res.user.email);
 
-      const url =
-        BASE_URL +
-        "?page=portal&email=" +
-        encodeURIComponent(email);
+      // Redirect to portal
+      window.location.href = BASE_URL + "?page=portal&email=" + encodeURIComponent(res.user.email);
 
-      window.location.href = url;
-    }
+    })
+    .catch(() => {
+      error.innerText = "Connection error";
+    });
+}
+</script>
 
-    function clearEmail() {
-      localStorage.removeItem("meatdelight_erp_email");
-      emailInput.value = "";
-      emailInput.focus();
-    }
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
-    }
-  </script>
 </body>
 </html>
