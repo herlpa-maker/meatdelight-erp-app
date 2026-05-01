@@ -70,41 +70,30 @@
 <body>
   <div class="box">
     <h1>MEATDELIGHT ERP</h1>
-    <p>Tap below to open the ERP securely in Chrome.</p>
+    <p>Tap below to open the ERP securely.</p>
 
     <button onclick="openERP()">
       Open ERP (Recommended)
     </button>
 
     <a class="secondary"
-       href="https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com"
+       href="https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com"
        target="_blank"
        rel="noopener">
       Open ERP (Fallback)
     </a>
 
     <div class="hint">
-      If Drive opens, clear defaults for Google Drive in Android Settings.
+      Optimized for mobile access.
     </div>
   </div>
 
   <script>
     const ERP_URL =
-      "https://script.google.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com";
+      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com";
 
     function openERP() {
-      const chromeIntent =
-        "intent://" +
-        ERP_URL.replace("https://", "") +
-        "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
-        encodeURIComponent(ERP_URL) +
-        ";end";
-
-      window.location.href = chromeIntent;
-
-      setTimeout(function () {
-        window.open(ERP_URL, "_blank", "noopener");
-      }, 1200);
+      window.location.href = ERP_URL;
     }
 
     if ("serviceWorker" in navigator) {
