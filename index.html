@@ -22,13 +22,28 @@
     }
 
     .box {
-      max-width: 380px;
+      max-width: 390px;
       width: 100%;
     }
 
-    h1 {
-      margin-bottom: 10px;
+    .logo {
+      width: 74px;
+      height: 74px;
+      border-radius: 22px;
+      background: white;
+      color: #7a1f1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
       font-size: 24px;
+      margin: 0 auto 16px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 25px;
     }
 
     p {
@@ -37,11 +52,22 @@
       font-size: 14px;
     }
 
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 15px;
+      outline: none;
+    }
+
     button, a {
       display: block;
       width: 100%;
       box-sizing: border-box;
-      margin-top: 16px;
+      margin-top: 14px;
       background: white;
       color: #7a1f1f;
       padding: 14px;
@@ -69,31 +95,60 @@
 
 <body>
   <div class="box">
+    <div class="logo">MD</div>
     <h1>MEATDELIGHT ERP</h1>
-    <p>Tap below to open the ERP securely.</p>
+    <p>Enter your ERP email once. The app will remember it on this phone.</p>
+
+    <input id="emailInput" type="email" placeholder="example@ayobrothers.com">
 
     <button onclick="openERP()">
-      Open ERP (Recommended)
+      Open ERP
     </button>
 
-    <a class="secondary"
-       href="https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com"
-       target="_blank"
-       rel="noopener">
-      Open ERP (Fallback)
-    </a>
+    <button class="secondary" onclick="clearEmail()">
+      Change User
+    </button>
 
     <div class="hint">
-      Optimized for mobile access.
+      AYO Brothers / MeatDelight mobile ERP launcher
     </div>
   </div>
 
   <script>
-    const ERP_URL =
-      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec?page=portal&email=herlpa@gmail.com";
+    const BASE_URL =
+      "https://script.google.com/a/ayobrothers.com/macros/s/AKfycbwyUliIctf-U18sI_pZJIQTpvpnqwVnsWL2LDSQQDzpBvq85STuqsC9DwhpuK8XZhYu/exec";
+
+    const DEFAULT_EMAIL = "herlpa@gmail.com";
+
+    const emailInput = document.getElementById("emailInput");
+
+    window.addEventListener("load", function () {
+      const saved = localStorage.getItem("meatdelight_erp_email") || DEFAULT_EMAIL;
+      emailInput.value = saved;
+    });
 
     function openERP() {
-      window.location.href = ERP_URL;
+      const email = String(emailInput.value || "").trim().toLowerCase();
+
+      if (!email) {
+        alert("Please enter your ERP email.");
+        return;
+      }
+
+      localStorage.setItem("meatdelight_erp_email", email);
+
+      const url =
+        BASE_URL +
+        "?page=portal&email=" +
+        encodeURIComponent(email);
+
+      window.location.href = url;
+    }
+
+    function clearEmail() {
+      localStorage.removeItem("meatdelight_erp_email");
+      emailInput.value = "";
+      emailInput.focus();
     }
 
     if ("serviceWorker" in navigator) {
